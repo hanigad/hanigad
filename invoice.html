@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YesWeb - Invoice</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fff;
+            color: #1a1a2e;
+            line-height: 1.5;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+        }
+
+        /* Invoice Header */
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 24px;
+            border-bottom: 3px solid #0a4d68;
+            margin-bottom: 32px;
+        }
+
+        .company-info {
+            flex: 1;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .logo {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #0a4d68 0%, #088395 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .logo svg {
+            width: 36px;
+            height: 36px;
+        }
+
+        .company-name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0a4d68;
+            letter-spacing: -0.5px;
+        }
+
+        .company-tagline {
+            font-size: 11px;
+            color: #088395;
+            font-weight: 500;
+            margin-top: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-info {
+            margin-top: 12px;
+            font-size: 12px;
+            color: #4a4a6a;
+        }
+
+        .contact-info a {
+            color: #0a4d68;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-info .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .contact-info .icon {
+            width: 18px;
+            height: 18px;
+            opacity: 0.8;
+        }
+
+        .invoice-title-block {
+            text-align: right;
+        }
+
+        .invoice-label {
+            font-size: 11px;
+            color: #6a6a8a;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+
+        .invoice-number {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .invoice-date {
+            font-size: 12px;
+            color: #4a4a6a;
+            margin-top: 4px;
+        }
+
+        /* Bill To Section */
+        .bill-to {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 10px;
+            font-weight: 600;
+            color: #088395;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 8px;
+        }
+
+        .bill-to-content {
+            font-size: 13px;
+            color: #1a1a2e;
+        }
+
+        /* Items Table */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 32px;
+        }
+
+        .items-table th {
+            background: #0a4d68;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 12px 16px;
+            text-align: left;
+        }
+
+        .items-table th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+
+        .items-table th:last-child {
+            border-radius: 0 8px 0 0;
+            text-align: right;
+        }
+
+        .items-table td {
+            padding: 14px 16px;
+            font-size: 13px;
+            border-bottom: 1px solid #e8e8f0;
+        }
+
+        .items-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .items-table th:nth-child(2),
+        .items-table td:nth-child(2) {
+            text-align: center;
+        }
+
+        .items-table th:nth-child(3),
+        .items-table td:nth-child(3),
+        .items-table th:nth-child(4),
+        .items-table td:nth-child(4) {
+            text-align: right;
+        }
+
+        .items-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        /* Totals */
+        .totals-section {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .totals-table {
+            width: 280px;
+        }
+
+        .totals-table tr {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 13px;
+        }
+
+        .totals-table .total-row {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0a4d68;
+            padding-top: 12px;
+            font-size: 18px;
+            border-top: 2px solid #0a4d68;
+        }
+
+        /* Footer */
+        .invoice-footer {
+            padding-top: 24px;
+            border-top: 1px solid #e8e8f0;
+            font-size: 11px;
+            color: #6a6a8a;
+            text-align: center;
+        }
+
+        .payment-terms {
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: #4a4a6a;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                padding: 0;
+                max-width: none;
+            }
+
+            .invoice-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .items-table th {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .logo {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Invoice Header -->
+    <header class="invoice-header">
+        <div class="company-info">
+            <div class="logo-container">
+                <div class="logo">
+                    <svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- YesWeb: Y letter + connection nodes representing web -->
+                        <path d="M18 6L24 16H22L18 10L14 16H12L18 6Z" fill="white"/>
+                        <path d="M18 18V28M18 18L12 24M18 18L24 24" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="18" cy="18" r="2" fill="white"/>
+                        <circle cx="12" cy="24" r="1.5" fill="white"/>
+                        <circle cx="24" cy="24" r="1.5" fill="white"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="company-name">YesWeb</h1>
+                    <p class="company-tagline">Website & Software Design • Video Filming & Broadcasting</p>
+                </div>
+            </div>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <a href="mailto:yesweb@yesweb.us">yesweb@yesweb.us</a>
+                </div>
+                <div class="contact-item">
+                    <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                    </svg>
+                    <a href="https://wa.me/201114286644">+20 111 428 6644</a>
+                </div>
+            </div>
+        </div>
+        <div class="invoice-title-block">
+            <div class="invoice-label">Invoice</div>
+            <div class="invoice-number">#INV-2025-001</div>
+            <div class="invoice-date">February 24, 2025</div>
+        </div>
+    </header>
+
+    <!-- Bill To -->
+    <section class="bill-to">
+        <div class="section-title">Bill To</div>
+        <div class="bill-to-content">
+            <strong>Client Name</strong><br>
+            Company/Organization<br>
+            Address Line 1<br>
+            City, Country
+        </div>
+    </section>
+
+    <!-- Items Table -->
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit Price</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Website Design & Development</td>
+                <td>1</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td>Software Development</td>
+                <td>1</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td>Video Filming & Broadcasting</td>
+                <td>1</td>
+                <td>$0.00</td>
+                <td>$0.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Totals -->
+    <section class="totals-section">
+        <table class="totals-table">
+            <tr>
+                <td>Subtotal</td>
+                <td>$0.00</td>
+            </tr>
+            <tr>
+                <td>Tax (0%)</td>
+                <td>$0.00</td>
+            </tr>
+            <tr class="total-row">
+                <td>Total</td>
+                <td>$0.00</td>
+            </tr>
+        </table>
+    </section>
+
+    <div class="payment-terms">
+        <strong>Payment Terms:</strong> Net 30 days from invoice date
+    </div>
+
+    <footer class="invoice-footer">
+        <p>Thank you for your business!</p>
+        <p>YesWeb — Website & Software Design • Video Filming & Broadcasting</p>
+        <p>yesweb@yesweb.us | WhatsApp: +20 111 428 6644</p>
+    </footer>
+</body>
+</html>
