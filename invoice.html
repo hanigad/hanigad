@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فاتورة - YesWeb</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 40px;
+        }
+        
+        .invoice-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+        }
+        
+        /* ترويسة الفاتورة */
+        .invoice-header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            padding: 40px 48px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+        
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .logo-container svg {
+            width: 48px;
+            height: 48px;
+        }
+        
+        .company-info h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        
+        .company-info .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .header-left {
+            text-align: left;
+        }
+        
+        .email-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        
+        .email-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .email-link svg {
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* محتوى الفاتورة */
+        .invoice-body {
+            padding: 48px;
+        }
+        
+        .invoice-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .invoice-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+        
+        .detail-section h3 {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .detail-section p {
+            font-size: 1rem;
+            color: #334155;
+        }
+        
+        /* جدول الخدمات */
+        .services-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 32px;
+        }
+        
+        .services-table th {
+            background: #f8fafc;
+            padding: 16px 20px;
+            text-align: right;
+            font-weight: 600;
+            color: #475569;
+            font-size: 0.9rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+        
+        .services-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #334155;
+        }
+        
+        .services-table tr:hover td {
+            background: #f8fafc;
+        }
+        
+        .total-row {
+            background: #0f172a !important;
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .total-row td {
+            padding: 20px;
+            border: none;
+        }
+        
+        /* تذييل الفاتورة */
+        .invoice-footer {
+            padding: 24px 48px;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        
+        .invoice-footer p {
+            font-size: 0.85rem;
+            color: #64748b;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .invoice-container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- ترويسة الفاتورة -->
+        <header class="invoice-header">
+            <div class="header-right">
+                <div class="logo-container">
+                    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M24 4L44 28H32L24 18L16 28H4L24 4Z" fill="white"/>
+                        <path d="M16 28V44H32V28" fill="white"/>
+                        <circle cx="24" cy="36" r="2" fill="white" opacity="0.8"/>
+                    </svg>
+                </div>
+                <div class="company-info">
+                    <h1>YesWeb</h1>
+                    <p class="tagline">تصميم المواقع • تطوير البرامج • التصوير والبث</p>
+                </div>
+            </div>
+            <div class="header-left">
+                <a href="mailto:yesweb@yesweb.us" class="email-link">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    yesweb@yesweb.us
+                </a>
+            </div>
+        </header>
+
+        <!-- محتوى الفاتورة -->
+        <div class="invoice-body">
+            <h2 class="invoice-title">فاتورة</h2>
+            
+            <div class="invoice-details">
+                <div class="detail-section">
+                    <h3>بيانات العميل</h3>
+                    <p><strong>الاسم:</strong> [اسم العميل]</p>
+                    <p><strong>التاريخ:</strong> [تاريخ الفاتورة]</p>
+                </div>
+                <div class="detail-section">
+                    <h3>تفاصيل الفاتورة</h3>
+                    <p><strong>رقم الفاتورة:</strong> #YW-0001</p>
+                    <p><strong>تاريخ الاستحقاق:</strong> [تاريخ الاستحقاق]</p>
+                </div>
+            </div>
+
+            <table class="services-table">
+                <thead>
+                    <tr>
+                        <th>الوصف</th>
+                        <th>الكمية</th>
+                        <th>السعر</th>
+                        <th>المجموع</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>تصميم موقع إلكتروني</td>
+                        <td>1</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>تطوير برنامج</td>
+                        <td>1</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>خدمة التصوير والبث</td>
+                        <td>1</td>
+                        <td>—</td>
+                        <td>—</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3">المجموع الكلي</td>
+                        <td>—</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <footer class="invoice-footer">
+            <p>شكراً لتعاملكم مع YesWeb • yesweb@yesweb.us</p>
+        </footer>
+    </div>
+</body>
+</html>
